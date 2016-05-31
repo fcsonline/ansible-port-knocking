@@ -1,0 +1,26 @@
+---
+
+   - name: writes the knockd conf
+     template: src=templates/knockd.conf.j2 dest=/etc/knockd.conf mode=0640
+     notify: start knockd
+
+   - name: allow loopback interface traffic
+     iptables: chain=INPUT in_interface=lo jump=ACCEPT
+     become: yes
+
+   - name: allow established traffic
+     iptables: chain=INPUT ctstate=ESTABLISHED,RELATED jump=ACCEPT
+     become: yes
+
+   - name: allow open ports traffic
+     iptables: chain=INPUT destination_port={{ item }} protocol=tcp match=tcp jump=ACCEPT
+     become: yes
+     with_items: "{{ open_ports }}"
+
+   - name: drop the rest of traffic
+     iptables: chain=INPUT jump=DROP
+     become: yes
+
+   - name: enable knockd conf
+     replace: dest=/etc/default/knockd regexp='^#(START_KNOCKD=1)$' replace='\1'
+     notify: restart knockd

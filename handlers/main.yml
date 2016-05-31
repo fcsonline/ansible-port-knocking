@@ -1,0 +1,6 @@
+---
+  - name: start knockd
+    service: name=knockd state=started
+
+  - name: restart knockd
+    service: name=knockd state=restarted
