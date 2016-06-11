@@ -1,5 +1,8 @@
 ---
 
+   - name: stop netfilter
+     service: name=netfilter-persistent state=stopped
+
    - name: writes the knockd conf
      template: src=templates/knockd.conf.j2 dest=/etc/knockd.conf mode=0640
      notify: start knockd
@@ -20,6 +23,12 @@
    - name: drop the rest of traffic
      iptables: chain=INPUT jump=DROP
      become: yes
+
+   - name: save rules
+     shell: iptables-save > /etc/iptables/rules.v4
+
+   - name: start netfilter
+     service: name=netfilter-persistent state=started
 
    - name: enable knockd conf
      replace: dest=/etc/default/knockd regexp='^#(START_KNOCKD=1)$' replace='\1'
