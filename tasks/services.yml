@@ -31,5 +31,5 @@
      service: name=netfilter-persistent state=started
 
    - name: enable knockd conf
-     replace: dest=/etc/default/knockd regexp='^#(START_KNOCKD=1)$' replace='\1'
+     replace: dest=/etc/default/knockd regexp='^(START_KNOCKD=)0$' replace='\g<1>1'
      notify: restart knockd
