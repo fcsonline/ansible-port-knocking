@@ -1,0 +1,34 @@
+---
+  - name: Install required packages
+    apt:
+      name: '{{ item }}'
+    with_items:
+      - 'python-pip'
+      - 'makepasswd'
+
+  - name: Install python required packages
+    pip:
+      name: '{{ item }}'
+    with_items:
+      - 'jinja2'
+      - 'pyotp'
+
+  - name: Convert to base32 secret password
+    shell: echo -n "{{ secret }}" | base32
+    register: secret_base32
+
+  - name: copy dynamic knockd template
+    copy: src=templates/knockd.conf.j2 dest=/etc/knockd.conf.j2 mode=0644
+
+  - name: writes knockd 2fa conf
+    template: src=templates/knockd.2fa.conf.j2 dest=/etc/knockd.2fa.conf mode=0640
+
+  - name: writes knockd 2fa configurator
+    copy: src=files/2fa.py dest=/etc/knockd.2fa.py mode=0755
+
+  - name: adds cron rule
+    cron: name="reconfigure 2fa for knockd" job="/etc/knockd.2fa.py"
+
+  - name: QRCode for 2fa
+    debug:
+      msg: "2FA QRCode url: https://www.google.com/chart?chs=200x200&chld=M|0&cht=qr&chl=otpauth://totp/root@{{ inventory_hostname }}%3Fsecret%3D{{ secret_base32.stdout }}  "

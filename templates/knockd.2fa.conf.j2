@@ -1,0 +1,6 @@
+[conf]
+secret={{ secret_base32.stdout }}
+sequence={{ port_sequence | join(",") }}
+sequence_timeout={{ sequence_timeout }}
+command_timeout={{ command_timeout }}
+secure_ports={{ secure_ports | join(",") }}

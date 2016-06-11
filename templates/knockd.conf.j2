@@ -1,6 +1,11 @@
 [options]
   UseSyslog
 
+{% if secret is defined %}
+{%- if code is defined %}
+# Current 2fa code: {{ code }}
+{%- endif %}
+{%- endif %}
 [SSH]
   sequence = {{ port_sequence | join(",") }}
   tcpflags = syn

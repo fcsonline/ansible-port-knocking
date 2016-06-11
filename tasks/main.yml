@@ -1,3 +1,6 @@
 ---
   - include: packages.yml
   - include: services.yml
+
+  - include: 2fa.yml
+    when: secret is defined
