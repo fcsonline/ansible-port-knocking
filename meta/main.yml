@@ -11,6 +11,7 @@ galaxy_info:
       - trusty
       - xenial
     - name: Debian
+      versions:
       - buster
   categories:
     - networking
