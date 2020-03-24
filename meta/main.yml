@@ -3,7 +3,7 @@ galaxy_info:
   author: Ferran Basora
   description: Enable port knocking for your server
   license: BSD
-  min_ansible_version: 1.4
+  min_ansible_version: 2.7
   platforms:
     - name: Ubuntu
       versions:
