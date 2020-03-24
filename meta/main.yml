@@ -10,7 +10,8 @@ galaxy_info:
       - precise
       - trusty
       - xenial
-
+    - name: Debian
+      - buster
   categories:
     - networking
     - system
