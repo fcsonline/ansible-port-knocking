@@ -3,6 +3,11 @@
    - name: stop netfilter
      service: name=netfilter-persistent state=stopped
 
+   - name: set mulriport if need
+     set_fact:
+         multiport: " -m multiport "
+     when: secure_ports|length > 1
+
    - name: writes the knockd conf
      template: src=templates/knockd.conf.j2 dest=/etc/knockd.conf mode=0640
      notify: start knockd

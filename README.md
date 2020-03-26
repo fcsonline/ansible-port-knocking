@@ -11,7 +11,7 @@ feature for all specified servers.
 Requirements
 ------------
 
-This role requires Ansible 1.4 or higher, and platform requirements are listed in the metadata file.
+This role requires Ansible 2.7 or higher, and platform requirements are listed in the metadata file.
 
 
 Role Variables

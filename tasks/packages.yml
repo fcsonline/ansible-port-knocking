@@ -1,9 +1,6 @@
 ---
   - name: Install requires packages
     apt:
-      name: '{{ item }}'
+      name: ['iptables-persistent', 'knockd']
       state: present
       update_cache: yes
-    with_items:
-      - 'iptables-persistent'
-      - 'knockd'
