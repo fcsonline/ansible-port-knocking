@@ -21,9 +21,8 @@ A description of the settable variables for this role should go here, including 
 
 - **port_sequence**: array of ports that builds the knocking sequence (Example: *[24334,34534,2287]*) **Mandatory**
 - **secure_ports**: array of ports to enable after a successful knocking sequence (Example: *[22]*) **Mandatory**
-- **open_ports**: array of ports always available (Example: *[80, 443]*) (Default: [])
-*) **Mandatory**
-- **command_line_options**: string KNOCKD_OPTS configuration (Example: "-i ens3")
+- **open_ports**: array of ports always available (Example: *[80, 443]*) (Default: []) **Mandatory**
+- **command_line_options**: string KNOCKD_OPTS configuration (Example: "-i ens3") **Mandatory**
 - sequence_timeout: number of seconds to be able to introduce the knocking sequence (Default: 15)
 - command_timeout: number of seconds to be able to introduce a command (Default: 20)
 
