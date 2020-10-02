@@ -8,6 +8,10 @@
          multiport: " -m multiport "
      when: secure_ports|length > 1
 
+   - name: writes the /etc/default/knockd
+     template: src=templates/knockd.j2 dest=/etc/default/knockd mode=0400
+     notify: start knockd
+
    - name: writes the knockd conf
      template: src=templates/knockd.conf.j2 dest=/etc/knockd.conf mode=0640
      notify: start knockd
@@ -34,7 +38,3 @@
 
    - name: start netfilter
      service: name=netfilter-persistent state=started
-
-   - name: enable knockd conf
-     replace: dest=/etc/default/knockd regexp='^(START_KNOCKD=)0$' replace='\g<1>1'
-     notify: restart knockd
